@@ -1,0 +1,10 @@
+{
+  "watch": ["*.js", "routes/", "models/", "controllers/"],
+  "ext": "js,json",
+  "ignore": ["node_modules/", "public/"],
+  "legacyWatch": true,
+  "usePolling": true,
+  "polling": true,
+  "poll": 1000,
+  "delay": 1000
+}
