@@ -40,11 +40,22 @@ app.use(express.json({ limit: "50mb" })); // allows you to parse the body of the
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://e-commerce-project-eta-ruddy.vercel.app"  // ton front Vercel
+];
+
 app.use(cors({
-  origin: "http://localhost:5173", // Your frontend URL exactly as shown in the error
-  credentials: true, // Important for cookies
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed for this origin: " + origin));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use("/api/auth", authroutes) //middleware pour définir des préfix pour les routes qui commencent par /api/auth/exemple1
