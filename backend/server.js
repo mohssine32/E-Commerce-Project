@@ -55,6 +55,6 @@ app.use("/api/payments", payementRoutes)
 app.use("/api/analytics", analyticsRoutes)
 
 app.listen(PORT, () => {
-console.log("server is running on http://localhost:",PORT);
+console.log(`Server is running on port ${process.env.PORT || 5001}`);
 connectDb();
 });
